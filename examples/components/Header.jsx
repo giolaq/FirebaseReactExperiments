@@ -60,19 +60,8 @@ class Header extends Component {
     return (
       <header id="header">
         <Link to="/" id="logo">
-          <h2>flip move</h2>
+          <h2>Top 10</h2>
         </Link>
-        <nav>
-          <div className="nav-layer links">
-            { this.generateNavLinks() }
-          </div>
-          <div className="nav-layer current-circle">
-            { this.generateCurrentHighlight() }
-          </div>
-          <div className="nav-layer gray-circles">
-            { this.generateGrayHighlight() }
-          </div>
-        </nav>
       </header>
     );
   }

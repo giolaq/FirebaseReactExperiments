@@ -9,7 +9,7 @@ import ReactSlider                      from 'react-slider';
 
 import FlipMove from 'react-flip-move';
 import Toggle from './Toggle.jsx';
-import cats from '../data/cats.js';
+import teams from '../data/teams.js';
 
 
 class Laboratory extends Component {
@@ -22,7 +22,7 @@ class Laboratory extends Component {
       easingValues: ['0', '0', '1.0', '1.0'],
       staggerDurationBy: 0,
       staggerDelayBy: 0,
-      cats
+      teams
     };
 
     this.handleSlide = this.handleSlide.bind(this);
@@ -41,7 +41,7 @@ class Laboratory extends Component {
 
   shuffleCats() {
     this.setState({
-      cats: shuffle(this.state.cats)
+      teams: shuffle(this.state.teams)
     })
   }
 
@@ -345,7 +345,7 @@ class CatList extends Component {
   }
 
   renderCats() {
-    return this.props.cats.map( cat => <Cat key={cat.id} {...cat} /> );
+    return this.props.teams.map( cat => <Cat key={cat.id} {...cat} /> );
   }
   formatEasing() {
     return `cubic-bezier(${ this.props.easingValues.join(',') })`;
@@ -370,13 +370,13 @@ class CatList extends Component {
 
 class Cat extends Component {
   render() {
-    const { name, origin, breed, catchphrase, img, url } = this.props;
+    const { name, origin, breed, investment, img, url } = this.props;
 
     return (
       <li className="cat card">
         <img src={img} className="cat-img" />
         <h3 className="cat-name">{name}</h3>
-        <h5 className="cat-catchphrase">{catchphrase}</h5>
+        <h5 className="cat-catchphrase">{investment}</h5>
         <h6 className="cat-origin">{origin}</h6>
         <div className="clearfix" />
       </li>

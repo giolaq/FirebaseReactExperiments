@@ -33,7 +33,6 @@ class App extends Component {
         <section id="main-content">
           { this.props.children }
         </section>
-        <Footer paths={this.availablePaths()} path={this.currentPath()} />
       </div>
     );
   }
@@ -44,9 +43,6 @@ render((
     <Route path="/" component={App}>
       <IndexRoute component={Home}/>
       <Route path="shuffle" component={Shuffle} />
-      <Route path="square" component={Square} />
-      <Route path="scrabble" component={Scrabble} />
-      <Route path="laboratory" component={Laboratory} />
     </Route>
   </Router>
 ), document.getElementById('render-target'))

@@ -14,11 +14,32 @@
 
 
   }
+
+  .circular {
+  	width: 80px;
+  	height: 80px;
+  	border-radius: 80px;
+  	-webkit-border-radius: 80px;
+  	-moz-border-radius: 80px;
+  	box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+  	-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+  	-moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+  	}
+
   .list-item {
     position: relative;
     margin: 0 6px 12px 6px;
     padding: 16px;
     list-style-type: none;
+    height: 150px;
+
+    .cat-img {
+      float: left;
+      margin-right: 8px;
+      width: 80px;
+      height: 80px;
+      border-radius: 2px 0 0 2px;
+    }
 
     &:hover button {
       display: block;

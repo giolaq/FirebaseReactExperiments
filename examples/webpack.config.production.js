@@ -8,7 +8,7 @@ module.exports = {
 
   output: {
     path: __dirname,
-    publicPath: '/react-flip-move/examples',
+    publicPath: './',
     filename: 'dist/bundle.js'
   },
 

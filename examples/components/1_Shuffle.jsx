@@ -8,6 +8,12 @@ import articles from '../data/articles';
 import FlipMove from 'react-flip-move';
 import Toggle from './Toggle.jsx';
 
+import ReactMixin from 'react-mixin';
+
+function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
 
 class ListItem extends Component {
   render() {
@@ -17,10 +23,9 @@ class ListItem extends Component {
     return (
       <li id={this.props.id} className={listClass} style={style}>
         <h3>{this.props.name}</h3>
+        <img src={this.props.img} className="cat-img" />
         <h5>{moment(this.props.timestamp).format('MMM Do, YYYY')}</h5>
-        <button onClick={this.props.clickHandler}>
-          <i className="fa fa-close" />
-        </button>
+        <h5>Investment {this.props.investment} K €</h5>
       </li>
     );
   }
@@ -46,6 +51,21 @@ class Shuffle extends Component {
     this.sortShuffle = this.sortShuffle.bind(this);
   }
 
+  componentWillMount() {
+  var ref = firebase.database().ref("teams");
+  this.bindAsArray(ref, "articles");
+
+  ref.on('value', function(dataSnapshot) {
+      this.sortShuffle();
+     }.bind(this));
+
+
+  }
+
+  componentWillUnmount() {
+  this.firebaseRef.off();
+  }
+
   toggleList() {
     this.setState({
       view: 'list',
@@ -60,9 +80,10 @@ class Shuffle extends Component {
     });
   }
 
+
   toggleSort() {
-    const sortAsc = (a, b) => a.timestamp - b.timestamp;
-    const sortDesc = (a, b) => b.timestamp - a.timestamp;
+    const sortAsc = (a, b) => a.investment - b.investment;
+    const sortDesc = (a, b) => b.investment - a.investment;
 
     this.setState({
       order: (this.state.order === 'asc' ? 'desc' : 'asc'),
@@ -74,9 +95,15 @@ class Shuffle extends Component {
   }
 
   sortShuffle() {
+    //this.state.articles[getRandomInt(0, this.state.articles.length)].investment =
+    //getRandomInt(10, 1000);
+
+    const sortDesc = (a, b) => b.investment - a.investment;
+
     this.setState({
       sortingMethod: 'shuffle',
-      articles: shuffle(this.state.articles)
+      articles: this.state.articles.sort(sortDesc)
+
     });
   }
 
@@ -142,22 +169,13 @@ class Shuffle extends Component {
             />
           </div>
           <div className="abs-right">
-            <Toggle
-              clickHandler={this.toggleSort}
-              text={this.state.order === 'asc' ? 'Ascending' : 'Descending'}
-              icon={this.state.order === 'asc' ? 'angle-up' : 'angle-down'}
-              active={this.state.sortingMethod === 'chronological'}
-            />
+
             <Toggle
               clickHandler={this.sortShuffle}
-              text="Shuffle" icon="random"
+              text="Random Vote" icon="random"
               active={this.state.sortingMethod === 'shuffle'}
             />
-            <Toggle
-              clickHandler={this.sortRotate}
-              text="Rotate" icon="refresh"
-              active={this.state.sortingMethod === 'rotate'}
-            />
+
           </div>
         </header>
         <div>
@@ -169,31 +187,15 @@ class Shuffle extends Component {
             typeName="ul"
           >
             { this.renderArticles() }
-            <footer key="foot">
-              <div className="abs-right">
-                <Toggle
-                  clickHandler={() => (
-                    this.moveArticle('removedArticles', 'articles')
-                  )}
-                  text="Add Item"
-                  icon="plus"
-                  active={this.state.removedArticles.length > 0}
-                />
-                <Toggle
-                  clickHandler={() => (
-                    this.moveArticle('articles', 'removedArticles')
-                  )}
-                  text="Remove Item"
-                  icon="close"
-                  active={this.state.articles.length > 0}
-                />
-              </div>
-            </footer>
+
           </FlipMove>
         </div>
       </div>
     );
   }
 };
+
+ReactMixin(Shuffle.prototype, ReactFireMixin);
+
 
 export default Shuffle;
