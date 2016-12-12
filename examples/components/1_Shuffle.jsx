@@ -10,6 +10,8 @@ import Toggle from './Toggle.jsx';
 
 import ReactMixin from 'react-mixin';
 
+var users = [];
+
 function getRandomInt(min, max) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
 };
@@ -23,9 +25,9 @@ class ListItem extends Component {
     return (
       <li id={this.props.id} className={listClass} style={style}>
         <h3>{this.props.name}</h3>
-        <img src={this.props.img} className="cat-img" />
-        <h5>{moment(this.props.timestamp).format('MMM Do, YYYY')}</h5>
-        <h5>Investment {this.props.investment} K €</h5>
+        <img src={this.props.imgUrl} className="cat-img" />
+        <h5>Coins {this.props.coins} K €</h5>
+        <h5>Hearts {this.props.hearts} H €</h5>
       </li>
     );
   }
@@ -41,7 +43,8 @@ class Shuffle extends Component {
       order: 'asc',
       sortingMethod: 'chronological',
       enterLeaveAnimation: 'accordianVertical',
-      articles
+      articles,
+      users
     };
 
     this.toggleList = this.toggleList.bind(this);
@@ -54,11 +57,68 @@ class Shuffle extends Component {
   componentWillMount() {
   var ref = firebase.database().ref("teams");
   this.bindAsArray(ref, "articles");
+  var refusers = firebase.database().ref("users");
+  this.bindAsArray(refusers, "users");
 
-  ref.on('value', function(dataSnapshot) {
-      this.sortShuffle();
-     }.bind(this));
+  //ref.on('value', function(dataSnapshot) {
+  //    this.sortShuffle();
+  //   }.bind(this));
 
+ refusers.on('value', function(dataSnapshot) {
+      this.sortTeams(dataSnapshot);
+    }.bind(this));
+
+
+  }
+
+  sortTeams(dataSnapshot) {
+    var currentUsers = dataSnapshot.val();
+    var teamsValues = {};
+    //Loop in users
+    for ( var key in currentUsers ) {
+      if (currentUsers.hasOwnProperty(key)) {
+        //loop in scores
+        for ( var keyScore in currentUsers[key]["scores"] ) {
+          if (currentUsers[key]["scores"].hasOwnProperty(keyScore)) {
+            if (keyScore in teamsValues) {
+              teamsValues[keyScore].hearts += currentUsers[key]["scores"][keyScore]["hearts"];
+              teamsValues[keyScore].coins += currentUsers[key]["scores"][keyScore]["coins"];
+            } else {
+              teamsValues[keyScore] = { "hearts" : currentUsers[key]["scores"][keyScore]["hearts"],
+              "coins" : currentUsers[key]["scores"][keyScore]["coins"]};
+            }
+
+          }
+        }
+
+      }
+    }
+
+    var indexOf = function(key, items) {
+      var i = 0;
+      var len = items.length;
+      for (i = 0; i < len; i++) {
+        if (key === items[i][".key"]) {
+          return i;
+        }
+      }
+      return -1;
+    }
+    console.log(teamsValues);
+
+   for ( key in teamsValues) {
+     if (teamsValues.hasOwnProperty(key)) {
+
+      var idx = indexOf(key, this.state.articles);
+      console.log("key " + key);
+
+      console.log(teamsValues[key]);
+      this.state.articles[idx].hearts = teamsValues[key].hearts;
+      this.state.articles[idx].coins = teamsValues[key].coins;
+    }
+   }
+
+    this.sortShuffle();
 
   }
 
@@ -82,8 +142,8 @@ class Shuffle extends Component {
 
 
   toggleSort() {
-    const sortAsc = (a, b) => a.investment - b.investment;
-    const sortDesc = (a, b) => b.investment - a.investment;
+    const sortAsc = (a, b) => a.coins - b.coins;
+    const sortDesc = (a, b) => b.coins - a.coins;
 
     this.setState({
       order: (this.state.order === 'asc' ? 'desc' : 'asc'),
@@ -97,8 +157,9 @@ class Shuffle extends Component {
   sortShuffle() {
     //this.state.articles[getRandomInt(0, this.state.articles.length)].investment =
     //getRandomInt(10, 1000);
+    console.log(this.state.articles);
 
-    const sortDesc = (a, b) => b.investment - a.investment;
+    const sortDesc = (a, b) => b.coins - a.coins;
 
     this.setState({
       sortingMethod: 'shuffle',
