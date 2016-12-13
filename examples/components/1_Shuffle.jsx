@@ -26,8 +26,7 @@ class ListItem extends Component {
       <li id={this.props.id} className={listClass} style={style}>
         <h3>{this.props.name}</h3>
         <img src={this.props.imgUrl} className="cat-img" />
-        <h5>Coins {this.props.coins} K €</h5>
-        <h5>Hearts {this.props.hearts} H €</h5>
+        <h2 className="right-value" >Coins {this.props.coins} K €</h2>
       </li>
     );
   }

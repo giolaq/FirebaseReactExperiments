@@ -60,7 +60,7 @@ class Header extends Component {
     return (
       <header id="header">
         <Link to="/" id="logo">
-          <h2>Top 10</h2>
+          <h2>Coins Rank</h2>
         </Link>
       </header>
     );
