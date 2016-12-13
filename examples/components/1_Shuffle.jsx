@@ -110,8 +110,6 @@ class Shuffle extends Component {
      if (teamsValues.hasOwnProperty(key)) {
 
       var idx = indexOf(key, this.state.articles);
-      console.log("key " + key);
-
       console.log(teamsValues[key]);
       this.state.articles[idx].hearts = teamsValues[key].hearts;
       this.state.articles[idx].coins = teamsValues[key].coins;
@@ -157,6 +155,7 @@ class Shuffle extends Component {
   sortShuffle() {
     //this.state.articles[getRandomInt(0, this.state.articles.length)].investment =
     //getRandomInt(10, 1000);
+    console.log("sort");
     console.log(this.state.articles);
 
     const sortDesc = (a, b) => b.coins - a.coins;
@@ -203,10 +202,10 @@ class Shuffle extends Component {
     return this.state.articles.map( (article, i) => {
       return (
         <ListItem
-          key={article.id}
+          key={article[".key"]}
           view={this.state.view}
           index={i}
-          clickHandler={throttle(() => this.moveArticle('articles', 'removedArticles', article.id), 800)}
+          clickHandler={throttle(() => this.moveArticle('articles', 'removedArticles', article[".key"]), 800)}
           {...article}
         />
       );
