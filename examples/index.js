@@ -8,6 +8,8 @@ import './polyfills/classlist';
 import Header     from './components/Header.jsx';
 import Home       from './components/Home.jsx';
 import Shuffle    from './components/1_Shuffle.jsx';
+import ShuffleHearts   from './components/ShuffleHearts.jsx';
+import ShuffleStars    from './components/ShuffleStars.jsx';
 import Square     from './components/2_Square.jsx';
 import Scrabble   from './components/3_Scrabble.jsx';
 import Laboratory from './components/4_Laboratory.jsx';
@@ -43,6 +45,8 @@ render((
     <Route path="/" component={App}>
       <IndexRoute component={Home}/>
       <Route path="shuffle" component={Shuffle} />
+      <Route path="shuffle_hearts" component={ShuffleHearts} />
+      <Route path="shuffle_stars" component={ShuffleStars} />
     </Route>
   </Router>
 ), document.getElementById('render-target'))
