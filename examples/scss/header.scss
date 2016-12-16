@@ -7,11 +7,11 @@ $num-of-demos: 4;
 #header {
   position: relative;
   height: $header-height;
-  background: $white;
+  margin: 0 auto;
 
   #logo {
-    position: absolute;
-    left: 16px;
+    position: relative;
+    left: 0px;
     height: $header-height;
     text-decoration: none;
 

@@ -26,7 +26,7 @@ class ListItem extends Component {
       <li id={this.props.id} className={listClass} style={style}>
         <h3>{this.props.name}</h3>
         <img src={this.props.imgUrl} className="cat-img" />
-        <h2 className="right-value" >Coins {this.props.coins} K €</h2>
+        <h2 className="right-value" >Coins {this.props.coins}</h2>
       </li>
     );
   }
@@ -215,27 +215,7 @@ class Shuffle extends Component {
     return (
       <div id="shuffle" className={this.state.view}>
         <header>
-          <div className="abs-left">
-            <Toggle
-              clickHandler={this.toggleList}
-              text="List" icon="list"
-              active={this.state.view === 'list'}
-            />
-            <Toggle
-              clickHandler={this.toggleGrid}
-              text="Grid" icon="th"
-              active={this.state.view === 'grid'}
-            />
-          </div>
-          <div className="abs-right">
-
-            <Toggle
-              clickHandler={this.sortShuffle}
-              text="Random Vote" icon="random"
-              active={this.state.sortingMethod === 'shuffle'}
-            />
-
-          </div>
+        <h2>Coins</h2>
         </header>
         <div>
           <FlipMove

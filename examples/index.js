@@ -44,6 +44,7 @@ render((
   <Router>
     <Route path="/" component={App}>
       <IndexRoute component={Home}/>
+      <Route path="home" component={App} />
       <Route path="shuffle" component={Shuffle} />
       <Route path="shuffle_hearts" component={ShuffleHearts} />
       <Route path="shuffle_stars" component={ShuffleStars} />

@@ -13,7 +13,6 @@
 @import './toggle.scss';
 @import './slider.scss';
 
-
 *, *:before, *:after { box-sizing: border-box; }
 
 html, body, input, button, select, option {
@@ -26,9 +25,17 @@ html, body, #render-target {
   height: 100%;
   margin: 0;
   padding: 0;
-  background: $aqua;
-  overflow-x: hidden;
+  background: rgba(211,243,254,1);
+background: -moz-linear-gradient(left, rgba(211,243,254,1) 0%, rgba(37,194,251,1) 100%);
+background: -webkit-gradient(left top, right top, color-stop(0%, rgba(211,243,254,1)), color-stop(100%, rgba(37,194,251,1)));
+background: -webkit-linear-gradient(left, rgba(211,243,254,1) 0%, rgba(37,194,251,1) 100%);
+background: -o-linear-gradient(left, rgba(211,243,254,1) 0%, rgba(37,194,251,1) 100%);
+background: -ms-linear-gradient(left, rgba(211,243,254,1) 0%, rgba(37,194,251,1) 100%);
+background: linear-gradient(to right, rgba(211,243,254,1) 0%, rgba(37,194,251,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d3f3fe', endColorstr='#25c2fb', GradientType=1 );
 }
+
+
 
 h1, h2, h3, h4, h5, h6 {
   margin: 0;

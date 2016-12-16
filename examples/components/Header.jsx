@@ -5,6 +5,7 @@ import classNames                       from 'classnames';
 
 import FlipMove from 'react-flip-move';
 
+import LogoPeekaboo from '../images/logopeekaboo.png';
 
 const HEADER_HEIGHT = 75;
 
@@ -60,7 +61,7 @@ class Header extends Component {
     return (
       <header id="header">
         <Link to="/" id="logo">
-          <h2>Rank</h2>
+        <img src={LogoPeekaboo}/>
         </Link>
       </header>
     );
